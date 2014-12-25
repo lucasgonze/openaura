@@ -1,3 +1,5 @@
-# Convenience framework for invoking OpenAura API from the shell
+# OpenAura Convenience Wrapper
 
-http://developer.openaura.com/examples/
+This is a script for automating tedious aspects of invoking the OpenAura API. I wrote to ease experimenting. 
+
+For more info see developer.openaura.com.

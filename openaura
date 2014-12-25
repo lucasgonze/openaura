@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Framework for invoking OpenAura API 
+# Automate repetitive parts of invoking OpenAura API 
 # http://developer.openaura.com/examples/
 #
 # c. 2014 Lucas Gonze. Hereby in public domain.
@@ -24,8 +24,8 @@ scratch=$(mktemp -t openaura-tmp.XXXXXXXXXX)
 touch "$scratch"
 
 function getter {
-	(curl -v -L -XGET "http://api.openaura.com/$1&api_key=$YOUR_API_KEY" > "$scratch") || exit 1
-	node -e "console.log(JSON.stringify(JSON.parse(require('fs').readFileSync(process.argv[1])), null, 4));" "$scratch"
+	(curl -v -L -XGET "http://api.openaura.com/$1&api_key=$YOUR_API_KEY" 2>&1 > "$scratch") || exit 1
+	node -e "console.log(JSON.stringify(JSON.parse(require('fs').readFileSync(process.argv[1])), null, 4));" "$scratch" | less
 }
 
 function finish {
@@ -39,8 +39,14 @@ ACTION="$1"
 
 case "$ACTION" in
 "PARTICLES")
-	getter "v1/particles/artists/$ARTIST_ID?limit=10&id_type=oa:artist_id" | less	
+	getter "v1/particles/artists/$ARTIST_ID?limit=10&id_type=oa:artist_id"
   ;;
+"SEARCH")
+	getter "v1/search/artists?q=taylor&limit=5"
+	;;
+"CLASSIC")
+	getter "v1/classic/artists/$ARTIST_ID?id_type=oa:artist_id"
+	;;
 *)
   echo "usage: $0 [ACTION]"
   ;;
