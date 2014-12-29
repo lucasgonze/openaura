@@ -29,8 +29,7 @@ function getter {
 }
 
 function finish {
-	echo "finish: rm $scratch"
-	rm -rf "$scratch"
+	rm -f "$scratch"
 }
 trap finish EXIT
 
