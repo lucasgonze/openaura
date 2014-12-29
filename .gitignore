@@ -1,4 +1,6 @@
 
+notes.txt
+
 # 12-Factor Apps don't store parameters in the master repo.
 config.sh
 
